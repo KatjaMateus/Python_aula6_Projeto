@@ -11,9 +11,15 @@ listtasks = [
     "prioridade" : "alta", 
     "categoria" : "diária",
     "concluído" : False
+    },
+    {"tarefa" : "louça", 
+    "descrição" : "lavar louça após cada refeição", 
+    "prioridade" : "alta", 
+    "categoria" : "diária",
+    "concluído" : False
     }
 ]
-def adicionar_tarefas(new_task, desc, prioridade, categoria):    
+def adicionar_tarefas():    
     new_task = str(input("Digite o nome da tarefa: "))
     desc = str(input("Digite a descrição da tarefa: "))
     prioridade = str(input("Digite o nível de prioridade: "))
@@ -28,17 +34,18 @@ def adicionar_tarefas(new_task, desc, prioridade, categoria):
     }
     return listtasks.append(dictionary)
 
-def listar_tarefas(items):
+def listar_tarefas():
     for item in listtasks:
-        return items
+        print(item)
 
-def marcar_concluida(item):
+def marcar_concluida():
+    nameTask = str(input("Digite o nome da tarefa procurada: "))
     for item in listtasks:
-        if item["tarefa"] == str(input("Digite o nome da tarefa procurada: ")):
+        if item["tarefa"] == nameTask:
             item["concluído"]=True
-        return item
+            return item
 
-def procurar_tarefas(item):
+def procurar_tarefas():
     while True:
         escolha = int(input("""Escolha uma opção: 
                 1 - Procurar pela prioridade 
@@ -49,22 +56,13 @@ def procurar_tarefas(item):
         if escolha == 1:
             prioridade = input("Digite o nível de prioridade ((ALTA | MÉDIA | BAIXA): ")
             for item in listtasks:  
-                if item["prioridade"]=="ALTA":  
-                    return "Tarefas de prioridade ALTA são {item}"
-                elif item["prioridade"]=="MÉDIA":
-                    return "Tarefas de prioridade MÉDIA são {item}"
-                elif item["prioridade"]=="BAIXA":
-                    return "Tarefas de prioridade BAIXA são {item}"
-                else:
-                    "Opção inválida"
+                if item["prioridade"]==prioridade.lower():  
+                    print(f"Tarefas de prioridade {prioridade} são {item}")
         elif escolha == 2:
+            categoria = input("Digite a categoria (DIÁRIA | SEMANAL): ")
             for item in listtasks:
-                if item["categoria"] == "DIÁRIA":
-                    return "Tarefas de categoria DIÁRIA são {item}"
-                if item["categoria"] == "SEMANAL":
-                    return "Tarefas de categoria SEMANAL são {item}"
-                else:
-                    "Opção inválida"
+                if item["categoria"] == categoria.lower():
+                    print(f"Tarefas de categoria {categoria} são {item}")
         elif escolha == 0:
             break
 
@@ -77,16 +75,14 @@ while True:
             0 - Sair
     """))
     if escolha == 1:
-        print(adicionar_tarefas(new_task="tarefa", desc="descrição", prioridade="prioridade", categoria="categoria"))
+        adicionar_tarefas()
     elif escolha == 2:
-        print(listar_tarefas(listtasks))
+        listar_tarefas()
     elif escolha == 3:
-        print(marcar_concluida(listtasks))
+        print(marcar_concluida())
     elif escolha == 4:
-        print(procurar_tarefas(listtasks))
+        procurar_tarefas()
     elif escolha == 0:
         print("Programa encerrado")
         break
-
-
 
